@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+
 function JoinChat() {
   const router = useRouter();
   const socket = useRef(null);
@@ -21,6 +22,8 @@ function JoinChat() {
 
     socket.current.emit("joinChat", { username: name, roomname: room });
     socket.current.on("room", (message) => {
+      console.log({message});
+      localStorage.setItem("userid", message.user);
       router.push(`/chat/${message.chatroom.id}`);
     });
 

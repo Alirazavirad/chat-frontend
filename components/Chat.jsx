@@ -34,7 +34,11 @@ function Chat({ id }) {
   }, []);
   const sendmessage = async (e) => {
     e.preventDefault();
-    const dd = socket.current.emit("chatMessage", { text, token, id });
+    const dd = socket.current.emit("chatMessage", {
+      text,
+      token: localStorage.getItem("userid"),
+      id,
+    });
 
     // const res = await fetch(`http://localhost:5000/chatroom/${id}`, {
     //   method: "POST",
@@ -72,13 +76,13 @@ function Chat({ id }) {
             <i className="fas fa-users" /> اعضا
           </h3>
           <ul id="users">
-            {chatroomInfo?.members?.map((user,index) => (
+            {chatroomInfo?.members?.map((user, index) => (
               <li key={index + 1}>{user.username}</li>
             ))}
           </ul>
         </div>
         <div className="chat-messages">
-          {messages?.map((message,index) => (
+          {messages?.map((message, index) => (
             <div className="message" key={index + 1}>
               <div style={{ display: "flex" }}>
                 <span className="meta">
@@ -87,7 +91,7 @@ function Chat({ id }) {
                 <span>{"  -  "}</span>
                 <span>
                   {new Date(
-                    message?.time ? message.time : message?.createdAt
+                    message?.time ? message.time : message?.createdAt,
                   ).toLocaleDateString("fa-IR")}
                 </span>
                 {"  "}
