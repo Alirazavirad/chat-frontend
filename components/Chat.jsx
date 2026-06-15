@@ -8,7 +8,7 @@ function Chat({ id }) {
   const [text, setText] = useState("");
   const [chatroomInfo, setChatroomInfo] = useState({});
   const getMessages = async () => {
-    const res = await fetch(`http://localhost:5000/chatroom/${id}`);
+    const res = await fetch(`https://chat-backend-vds6.onrender.com/chatroom/${id}`);
     const data = await res.json();
     setChatroomInfo(data.chatroom);
     setMessages(data.chatroom.messages);
@@ -18,7 +18,7 @@ function Chat({ id }) {
   }, []);
   const socket = useRef(null);
   useEffect(() => {
-    socket.current = io("http://localhost:5000");
+    socket.current = io("https://chat-backend-vds6.onrender.com");
     socket.current.on("message", (message) => {
       setMessages((prev) => [...prev, message]);
     });
@@ -40,7 +40,7 @@ function Chat({ id }) {
       id,
     });
 
-    // const res = await fetch(`http://localhost:5000/chatroom/${id}`, {
+    // const res = await fetch(`https://chat-backend-vds6.onrender.com/chatroom/${id}`, {
     //   method: "POST",
     //   headers: {
     //     "Content-Type": "application/json",

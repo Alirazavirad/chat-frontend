@@ -10,7 +10,7 @@ function JoinChat() {
   const token = Cookies.get("userid");
 
   useEffect(() => {
-    socket.current = io("http://localhost:5000");
+    socket.current = io("https://chat-backend-vds6.onrender.com");
     return () => {
       socket.current.disconnect();
     };
